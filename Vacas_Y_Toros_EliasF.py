@@ -1,5 +1,7 @@
 import random
 
+## Importante: Se deben agregar las explicaciones de los errores, para que el usuario entienda. 
+
 def convertirString(Lista):
     Numero = ""
     for i in range(4):
