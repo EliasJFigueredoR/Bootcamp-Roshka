@@ -1,2 +1,3 @@
 # Bootcamp-Roshka
-Vamos a utilizar para realizar los ejercicios de roshka
+Vamos a utilizar branches para organizar los ejercicicos. 
+1. Ejercicio/Vacas_Y_Toros
