@@ -22,6 +22,7 @@ def generar_numero():
 
 def validar_Numero(Numero):
     if not Numero.isdigit() or len(Numero) != 4:
+        print("\n Debe ser un numero valido de 4 digitos!")
         return False
     
     for d1 in Numero:
@@ -30,6 +31,7 @@ def validar_Numero(Numero):
             if d1 == d2:
                 contador = contador + 1
         if contador > 1:
+            print("\n No se pueden colocar digitos repetidos!")
             return False
         
     return True
