@@ -10,32 +10,15 @@ public class Ejercicio10 {
 
         switch(dia)
         {
-            case "Lunes":
+            case "Lunes", "Martes", "Miercoles", "Jueves", "Viernes":
                 System.out.println("Dia Laboral");
                 break;
-            case "Martes":
-                System.out.println("Dia Laboral");
-                break;
-            case "Miercoles":
-                System.out.println("Dia Laboral");
-                break;
-            case "Jueves":
-                System.out.println("Dia Laboral");
-                break;
-            case "Viernes":
-                System.out.println("Dia Laboral");
-                break;
-            case "Sabado":
-                System.out.println("Dia no Laboral");
-                break;
-            case "Domingo":
+            case "Sabado", "Domingo":
                 System.out.println("Dia no Laboral");
                 break;
             default:
                 System.out.println("Introduce un dia valido");
                 break;
         }
-
     }
-
 }
