@@ -14,9 +14,8 @@ public class Main {
             System.out.println("0. Salir");
             System.out.println("1. Ejercicio 1");
             System.out.println("2. Ejercicio 2");
-            System.out.println("3. Ejercicio 3");
-            System.out.println("4. Ejercicio 4");
-            System.out.println("4. Ejercicio 5");
+            System.out.println("n. Ejercicio n");
+            System.out.println("10. Ejercicio 10");
             System.out.print("Seleccione una opción: ");
             NroEjercicio = scanner.nextInt();
 
@@ -60,6 +59,36 @@ public class Main {
                     System.out.println("\n---Ejercicio 5---");
                     Ejercicio05 Ej5 = new Ejercicio05();
                     Ej5.NumeroPar();
+                    break;
+                case 6:
+                    //Ejercicio 06
+                    System.out.println("\n---Ejercicio 6---");
+                    Ejercicio06 Ej6 = new Ejercicio06();
+                    Ej6.calcularPrecio();
+                    break;
+                case 7:
+                    //Ejercicio 07
+                    System.out.println("\n---Ejercicio 7---");
+                    Ejercicio07 Ej7 = new Ejercicio07();
+                    Ej7.mostrarNumeros();
+                    break;
+                case 8:
+                    //Ejercicio 08
+                    System.out.println("\n---Ejercicio 8---");
+                    Ejercicio08 Ej8 = new Ejercicio08();
+                    Ej8.numeroPostivo();
+                    break;
+                case 9:
+                    //Ejercicio 09
+                    System.out.println("\n---Ejercicio 9---");
+                    Ejercicio09 Ej9 = new Ejercicio09();
+                    Ej9.contrasena();
+                    break;
+                case 10:
+                    //Ejercicio 10
+                    System.out.println("\n---Ejercicio 10---");
+                    Ejercicio10 Ej10 = new Ejercicio10();
+                    Ej10.diasSemana();
                     break;
                 default:
                     System.out.println("\nColoca una opción valida");
