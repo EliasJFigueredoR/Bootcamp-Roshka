@@ -8,7 +8,7 @@ public class Ejercicio09 {
     {
         Scanner scanner = new Scanner(System.in);
         String palabraUsuario;
-        System.out.println("Tienes 3 intentos (paraguas)");
+        System.out.println("Tienes 3 intentos (Paraguas)");
         System.out.print("Ingrese la contraseña:");
 
 
