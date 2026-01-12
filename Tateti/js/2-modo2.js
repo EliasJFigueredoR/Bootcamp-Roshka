@@ -4,6 +4,8 @@ const botonEmpezar = document.getElementById("empezar");
 const infoTurno = document.getElementById("indicadorTurno");
 const seccionTurno = document.getElementById("InfoTurno");
 const tabla = document.querySelector("table");
+const btnJugador1X = document.getElementById("jugador1X");
+const btnJugador1Y = document.getElementById("jugador1Y");
 const combinacionesGanadoras = [
     [0, 1, 2], [3, 4, 5], [6, 7, 8], 
     [0, 3, 6], [1, 4, 7], [2, 5, 8], 
@@ -24,9 +26,8 @@ function imprimirTurno() {
 
 function iniciarJuego()
 {
-    const azar = Math.random();
 
-    if (azar < 0.5) {
+    if (btnJugador1X.disabled) {
         turnoJ = true;
         tableroPuntos = [1, 1, 1, 30, 40, 30, 1, 1, 1];
         
@@ -219,9 +220,19 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     tabla.addEventListener("click", manjearJugada);
+
+    btnJugador1X.addEventListener("click", () => {
+        btnJugador1X.disabled =true;
+        btnJugador1Y.disabled =false;
+    });
+    btnJugador1Y.addEventListener("click", () => {
+        btnJugador1X.disabled =false;
+        btnJugador1Y.disabled =true;
+    });
+
 });
 
-
+btnJugador1X.disabled =true;
 
 
 

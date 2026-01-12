@@ -5,6 +5,10 @@ const botonEmpezar = document.getElementById("empezar");
 const infoTurno = document.getElementById("indicadorTurno");
 const seccionTurno = document.getElementById("InfoTurno");
 const tabla = document.querySelector("table");
+const btnJugador1X = document.getElementById("jugador1X");
+const btnJugador1Y = document.getElementById("jugador1Y");
+const btnJugador2X = document.getElementById("jugador2X");
+const btnJugador2Y = document.getElementById("jugador2Y");
 
 let juegoIniciado = false;
 let juegoTerminado = false;
@@ -25,12 +29,12 @@ function imprimirTurno() {
 
 function iniciarJuego()
 {
-    const azar = Math.random();
 
-    if (azar < 0.5) {
+    if(btnJugador1X.disabled)
+    {
         turnoJ = true;
-        
-    } else {
+    }else
+    {
         turnoJ = false;
     }
 
@@ -95,9 +99,9 @@ function verificarGanador() {
         let celda2 = celdaIndice(b);
         let celda3 = celdaIndice(c);
         
-        celda1.style.background = "yellow";
-        celda2.style.background = "yellow";
-        celda3.style.background = "yellow";
+        celda1.style.background = "green";
+        celda2.style.background = "green";
+        celda3.style.background = "green";
 
         juegoTerminado = true;
         if(turnoJ)
@@ -172,10 +176,36 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     tabla.addEventListener("click", manjearJugada);
+
+    btnJugador1X.addEventListener("click", () => {
+        btnJugador1X.disabled =true;
+        btnJugador2Y.disabled =true;
+        btnJugador2X.disabled =false;
+        btnJugador1Y.disabled =false;
+    });
+    btnJugador1Y.addEventListener("click", () => {
+        btnJugador1X.disabled =false;
+        btnJugador2Y.disabled =false;
+        btnJugador2X.disabled =true;
+        btnJugador1Y.disabled =true;
+    });
+    btnJugador2X.addEventListener("click", () => {
+        btnJugador1X.disabled =false;
+        btnJugador2Y.disabled =false;
+        btnJugador2X.disabled =true;
+        btnJugador1Y.disabled =true;
+    });
+    btnJugador2Y.addEventListener("click", () => {
+        btnJugador1X.disabled =true;
+        btnJugador2Y.disabled =true;
+        btnJugador2X.disabled =false;
+        btnJugador1Y.disabled =false;
+    });
 });
 
 
-
+btnJugador1X.disabled =true;
+btnJugador2Y.disabled =true;
 
 
 
