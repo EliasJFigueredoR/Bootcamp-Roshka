@@ -1,0 +1,84 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+  <link rel="stylesheet" href="css/style.css">
+  <meta name="description" content="">
+
+  <link rel="manifest" href="site.webmanifest">
+  <meta name="theme-color" content="#fafafa">
+</head>
+
+<body>
+  <header>
+    <h1>Jahuga Tateti</h1>
+  </header>
+  <main>
+    <section id="Datos">
+      <div>
+        <label for="jugador1" >Jugador 1: </label>
+        <input id="jugador1" required>
+      </div>  
+
+      <div class="btn">
+        <label for="jugador2">Jugador 2: </label>
+        <input id="jugador2" required>
+      </div>
+      <button class="btn" id="empezar" type="submit" >Empezar a jugar</button>
+      <button class="btn" onclick="window.location.href='1-menu.html'">Volver al menu</button>
+    </section>
+    <section id="Juego">
+      <table>
+        <tr class="bordetr">
+          <td id="celda1" class="celda">
+
+          </td>
+          <td id="celda2" class="celda bordetd">
+
+          </td>
+          <td id="celda3" class="celda bordetd">
+
+          </td>
+        </tr>
+        <tr class="bordetr">
+          <td  id="celda4" class="celda">
+
+          </td>
+          <td id="celda5" class="celda bordetd">
+
+          </td>
+          <td id="celda6" class="celda bordetd">
+
+          </td>
+        </tr>
+        <tr>
+          <td id="celda7" class="celda">
+
+          </td>
+          <td id="celda8" class="celda bordetd">
+
+          </td>
+          <td id="celda9" class="celda bordetd">
+
+          </td>
+        </tr>
+      </table>
+    </section>
+    <section id="InfoTurno" class="oculto">
+      <h3>Turno actual:</h3>
+      <div id="indicadorTurno" class="resaltado">
+        </div>
+    </section>
+  </main>
+  <footer>
+    <small>
+      &copy; <time datetime="2025">2025</time> — Elias Figueredo.
+    </small>
+  </footer>
+  <script src="js/1-modo1.js"></script>
+</body>
+
+</html>
