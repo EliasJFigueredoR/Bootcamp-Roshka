@@ -28,7 +28,7 @@ function iniciarJuego()
 
     if (azar < 0.5) {
         turnoJ = true;
-        tableroPuntos[5] = tableroPuntos + 1;
+        tableroPuntos = [1, 1, 1, 1, 2, 1, 1, 1, 1];
         
     } else {
         turnoJ = false;
