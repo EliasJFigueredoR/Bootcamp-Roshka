@@ -28,10 +28,11 @@ function iniciarJuego()
 
     if (azar < 0.5) {
         turnoJ = true;
-        tableroPuntos = [1, 1, 1, 1, 2, 1, 1, 1, 1];
+        tableroPuntos = [1, 1, 1, 30, 40, 30, 1, 1, 1];
         
     } else {
         turnoJ = false;
+        tableroPuntos = [1, 1, 1, 30, 40, 30, 1, 1, 1];
         jugadaMaquina();
     }
 
