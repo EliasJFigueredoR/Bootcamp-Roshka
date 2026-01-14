@@ -1,2 +1,2 @@
 # Bootcamp-Roshka
-Vamos a utilizar para realizar los ejercicios de roshka
+Ejercicio realizado en python
