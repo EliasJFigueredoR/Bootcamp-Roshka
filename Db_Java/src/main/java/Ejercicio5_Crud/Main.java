@@ -9,5 +9,23 @@ public class Main {
 
         Editorial Ed = Editorial.buscarPorId(3);
         System.out.println(Ed.getNombre());
+
+        Libro l = Libro.buscarPorId(1);
+        System.out.println(l.getNombre());
+
+        Curso Cu = Curso.buscarPorId(1);
+        System.out.println(Cu.getNombre());
+
+        Colegio Co = Colegio.buscarPorId(1);
+        System.out.println(Co.getNombre());
+
+        Aula Al = Aula.buscarPorId(1);
+        System.out.println(Al.getNombre());
+
+        Asignatura_Habilidad As = Asignatura_Habilidad.buscarPorId(1);
+        System.out.println(As.getNombre());
+
+        Profesor pr = Profesor.buscarPorId(1);
+        System.out.println(pr.getNombre());
     }
 }
