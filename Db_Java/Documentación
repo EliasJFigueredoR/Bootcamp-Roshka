@@ -1,0 +1,10 @@
+
+Flujo:
+--------
+* Debemos crear una clase que sirva como conexión
+* Debemos crear las clases con los atributos, conectores, getters y setters.
+* Utilizamos en cada clase el flujo
+    *Traer la conexión
+    *Utilizar PreparedStatement
+    *Utilizar Resultset
+
