@@ -1,10 +1,9 @@
 package Ejercicio5_Crud;
 
-import javax.swing.plaf.synth.SynthTextAreaUI;
 import java.sql.*;
 
 public class Editorial {
-    private int id_editorial;
+    private int id_editorial = 0;
     private String nombre;
 
     public Editorial(String nombre) {
@@ -26,7 +25,7 @@ public class Editorial {
                 if(rs.next())
                 {
                     this.id_editorial= rs.getInt(1);
-                    System.out.println("Usuario creado con ID: " + this.id_editorial);
+                    System.out.println("Editorial creado con ID: " + this.id_editorial);
                 }
             }else
             {
@@ -36,7 +35,7 @@ public class Editorial {
                 stmt.setInt(2, this.id_editorial);
 
                 stmt.executeUpdate();
-                System.out.println("Usuario ID " + this.id_editorial+ " actualizado.");
+                System.out.println("Editorial ID " + this.id_editorial+ " actualizado.");
             }
 
         }catch (SQLException e)
@@ -57,7 +56,7 @@ public class Editorial {
             stmt.setInt(1, this.id_editorial);
             stmt.executeUpdate();
 
-            System.out.println("Usuario Eliminado");
+            System.out.println("Editorial Eliminada");
             this.id_editorial = 0;
 
         }catch (SQLException e)
