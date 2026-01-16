@@ -35,7 +35,7 @@ public class Colegio_Profesor {
                 }
             }else
             {
-                String sql = "UPDATE Colegio_Profesor SET (id_profesor, id_colegio) VALUES (?,?) WHERE id_colegio_profesor = ?";
+                String sql = "UPDATE Colegio_Profesor SET id_profesor=?, id_colegio=? WHERE id_colegio_profesor = ?";
                 PreparedStatement stmt = conn.prepareStatement(sql);
                 stmt.setInt(1,this.id_profesor);
                 stmt.setInt(2, this.id_colegio);

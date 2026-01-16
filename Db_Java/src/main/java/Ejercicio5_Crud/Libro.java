@@ -28,11 +28,12 @@ public class Libro {
                     System.out.println("Libro creado con ID: " + this.id_libro);
                 }
             } else {
-                String sql = "UPDATE Libro SET (nombre, cantidad) values(?,?) WHERE id_libro = ?";
+                String sql = "UPDATE Libro SET nombre=?, cantidad=? WHERE id_libro = ?";
                 PreparedStatement stmt = conn.prepareStatement(sql);
                 stmt.setString(1, this.nombre);
-                stmt.setInt(2, this.id_libro);
-                stmt.setInt(3, this.cantidad);
+                stmt.setInt(2, this.cantidad);
+                stmt.setInt(3, this.id_libro);
+
 
                 stmt.executeUpdate();
                 System.out.println("Libro ID " + this.id_libro + " actualizado.");
