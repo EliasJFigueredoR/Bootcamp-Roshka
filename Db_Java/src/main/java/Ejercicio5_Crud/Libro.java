@@ -3,24 +3,24 @@ package Ejercicio5_Crud;
 import java.sql.*;
 
 public class Libro {
-    private int id_libro = 0; // Inicializamos en 0 para saber si es nuevo
+    private int id_libro = 0;
     private String nombre;
+    private int cantidad;
 
-    public Libro(String nombre) {
+    public Libro(String nombre, int cantidad) {
         this.nombre = nombre;
+        this.cantidad = cantidad;
     }
 
-    // Constructor vacío necesario para buscarPorId
     public Libro() {}
 
     public void guardar() {
         try (Connection conn = Conexion.getConexion()) {
             if (this.id_libro == 0) {
-                // INSERT: Asumo que la columna en BD se llama 'id_libro'
-                // Usamos RETURNING para obtener el ID generado automáticamente por Postgres
-                String sql = "INSERT INTO Libro (nombre) VALUES (?) RETURNING id_libro";
+                String sql = "INSERT INTO Libro (nombre, cantidad) VALUES (?,?) RETURNING id_libro";
                 PreparedStatement stmt = conn.prepareStatement(sql);
                 stmt.setString(1, this.nombre);
+                stmt.setInt(2, this.cantidad);
 
                 ResultSet rs = stmt.executeQuery();
                 if (rs.next()) {
@@ -28,11 +28,11 @@ public class Libro {
                     System.out.println("Libro creado con ID: " + this.id_libro);
                 }
             } else {
-                // UPDATE
-                String sql = "UPDATE Libro SET nombre = ? WHERE id_libro = ?";
+                String sql = "UPDATE Libro SET (nombre, cantidad) values(?,?) WHERE id_libro = ?";
                 PreparedStatement stmt = conn.prepareStatement(sql);
                 stmt.setString(1, this.nombre);
                 stmt.setInt(2, this.id_libro);
+                stmt.setInt(3, this.cantidad);
 
                 stmt.executeUpdate();
                 System.out.println("Libro ID " + this.id_libro + " actualizado.");
@@ -40,14 +40,13 @@ public class Libro {
 
         } catch (SQLException e) {
             System.out.println("Error en la conexión al guardar libro");
-            // e.printStackTrace(); // Descomentar para ver el error real si falla
         }
     }
 
     public void eliminar() {
         try (Connection conn = Conexion.getConexion()) {
             if (this.id_libro == 0) {
-                return; // No se puede eliminar algo que no existe en BD
+                return;
             }
             String sql = "DELETE FROM Libro WHERE id_libro = ?";
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -55,7 +54,7 @@ public class Libro {
             stmt.executeUpdate();
 
             System.out.println("Libro Eliminado");
-            this.id_libro = 0; // Reseteamos el ID localmente
+            this.id_libro = 0;
 
         } catch (SQLException e) {
             System.out.println("Error en la conexión al eliminar libro");
@@ -74,14 +73,14 @@ public class Libro {
                 l = new Libro();
                 l.setId_libro(rs.getInt("id_libro"));
                 l.setNombre(rs.getString("nombre"));
+                l.setCantidad(rs.getInt("cantidad"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return l; // Retorna el objeto lleno o null
+        return l;
     }
 
-    // Getters y Setters
     public int getId_libro() {
         return id_libro;
     }
@@ -96,5 +95,13 @@ public class Libro {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
     }
 }

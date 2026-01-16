@@ -15,12 +15,14 @@ public class Colegio_Profesor {
         this.id_colegio = id_colegio;
     }
 
+    public Colegio_Profesor(){}
+
     public void guardar(){
         try(Connection conn = Conexion.getConexion())
         {
             if(this.id_colegio_profesor==0)
             {
-                String sql = "INSERT INTO Colegio_Profesor (id_profesor,id_colegio) VALUES (?,?) RETURNING id";
+                String sql = "INSERT INTO Colegio_Profesor (id_profesor,id_colegio) VALUES (?,?) RETURNING id_colegio_profesor";
                 PreparedStatement stmt = conn.prepareStatement(sql);
                 stmt.setInt(1, this.id_profesor);
                 stmt.setInt(2, this.id_colegio);
@@ -47,6 +49,26 @@ public class Colegio_Profesor {
         {
             System.out.println("Error en la conexión");
         }
+    }
+
+    public static Colegio_Profesor buscarPorId(int id) {
+        Colegio_Profesor cp = null;
+        try (Connection conn = Conexion.getConexion()) {
+            String sql = "SELECT * FROM Colegio_Profesor WHERE id_colegio_profesor = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                cp = new Colegio_Profesor();
+                cp.setId_colegio(rs.getInt("id_colegio"));
+                cp.setId_profesor(rs.getInt("id_profesor"));
+                cp.setId_colegio_profesor(rs.getInt("id_colegio_profesor"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return cp;
     }
 
     public void eliminar(){

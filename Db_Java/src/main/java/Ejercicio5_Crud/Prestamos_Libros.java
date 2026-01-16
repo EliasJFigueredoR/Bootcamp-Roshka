@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Date;
+import java.util.ArrayList;
 
 public class Prestamos_Libros {
 
@@ -33,7 +34,7 @@ public class Prestamos_Libros {
 
             if (this.id_prestamos == 0) {
 
-                String sql = "INSERT INTO prestamos_libros (fecha_prestamo, id_colegio_profesor, id_curso, id_asignatura, id_aula) " +
+                String sql = "INSERT INTO prestamos_libros (fecha_pestamo, id_colegio_profesor, id_curso, id_asignatura, id_aula) " +
                         "VALUES (?, ?, ?, ?, ?) RETURNING id_prestamos";
 
                 try (PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -50,7 +51,7 @@ public class Prestamos_Libros {
                     }
                 }
             } else {
-                String sql = "UPDATE prestamos_libros SET fecha_prestamo=?, id_colegio_profesor=?, id_curso=?, id_asignatura=?, id_aula=? " +
+                String sql = "UPDATE prestamos_libros SET fecha_pestamo=?, id_colegio_profesor=?, id_curso=?, id_asignatura=?, id_aula=? " +
                         "WHERE id_prestamos=?";
 
                 try (PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -71,12 +72,6 @@ public class Prestamos_Libros {
         }
     }
 
-    public void imprimirPrestamo()
-    {
-
-
-    }
-
     public static Prestamos_Libros buscarPorId(int id) {
         Prestamos_Libros Pl = null;
         try (Connection conn = Conexion.getConexion()) {
@@ -88,8 +83,8 @@ public class Prestamos_Libros {
             if (rs.next()) {
                 Pl = new Prestamos_Libros();
                 Pl.setId_prestamos(id);
-                Pl.setFecha_prestamo(rs.getDate("fecha_prestamo"));
-                Pl.setId_prestamos(rs.getInt("id_colegio_Profesor"));
+                Pl.setFecha_prestamo(rs.getDate("fecha_pestamo"));
+                Pl.setId_colegio_profesor(rs.getInt("id_colegio_profesor"));
                 Pl.setId_curso(rs.getInt("id_curso"));
                 Pl.setId_asignatura(rs.getInt("id_asignatura"));
                 Pl.setId_aula(rs.getInt("id_aula"));
@@ -98,6 +93,52 @@ public class Prestamos_Libros {
             e.printStackTrace();
         }
         return Pl;
+    }
+
+    public void imprimirPrestamo() {
+        System.out.println("==========================================");
+        System.out.println("         TICKET DE PRÉSTAMO #" + this.id_prestamos);
+        System.out.println("==========================================");
+        System.out.println("Fecha: " + this.fecha_prestamo);
+
+        Curso cursoObj = Curso.buscarPorId(this.id_curso);
+        Asignatura_Habilidad asigObj = Asignatura_Habilidad.buscarPorId(this.id_asignatura);
+        Aula aulaObj = Aula.buscarPorId(this.id_aula);
+
+        System.out.println("Curso: " + cursoObj.getNombre());
+        System.out.println("Asignatura: " + asigObj.getNombre());
+        System.out.println("Aula ID: " + aulaObj.getNombre());
+
+        Colegio_Profesor cp = Colegio_Profesor.buscarPorId(this.id_colegio_profesor);
+
+        System.out.println("------------------------------------------");
+        System.out.println("Solicitante:");
+
+        Profesor profObj = Profesor.buscarPorId(cp.getId_profesor());
+        Colegio colegObj = Colegio.buscarPorId(cp.getId_colegio());
+
+        System.out.println(" ->Profesor: " + profObj.getNombre());
+        System.out.println(" ->Colegio: " + colegObj.getNombre());
+
+        System.out.println("------------------------------------------");
+        System.out.println("LIBROS SOLICITADOS:");
+
+        ArrayList<Detalle_Prestamos> detalles = Detalle_Prestamos.TraerDetalles(this.id_prestamos);
+
+        if (detalles.isEmpty()) {
+            System.out.println(" (Sin libros registrados)");
+        } else {
+
+            for (Detalle_Prestamos det : detalles) {
+
+                Libro libroObj = Libro.buscarPorId(det.getId_libro());
+                String nombre = (libroObj != null) ? libroObj.getNombre() : "ID Desconocido";
+
+                System.out.println(" - " + nombre + " (Cant: " + det.getCantidad() + ")");
+            }
+        }
+
+        System.out.println("==========================================\n");
     }
 
     public void eliminar() {

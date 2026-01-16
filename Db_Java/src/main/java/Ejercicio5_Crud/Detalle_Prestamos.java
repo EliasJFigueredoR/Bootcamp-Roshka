@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class Detalle_Prestamos {
     private int id_prestamos;
@@ -65,6 +66,34 @@ public class Detalle_Prestamos {
         }
     }
 
+    public static ArrayList<Detalle_Prestamos> TraerDetalles(int id)
+    {
+        ArrayList<Detalle_Prestamos> lista = new ArrayList<Detalle_Prestamos>();
+        try (Connection conn = Conexion.getConexion()) {
+
+            String sqlDetalle = "SELECT id_libro, cantidad, id_editorial FROM detalle_prestamos WHERE id_prestamos = ?";
+
+            try(PreparedStatement stmt = conn.prepareStatement(sqlDetalle)) {
+
+                stmt.setInt(1, id);
+                ResultSet rs = stmt.executeQuery();
+
+                while (rs.next()) {
+                    int idLibro = rs.getInt("id_libro");
+                    int cantidad = rs.getInt("cantidad");
+                    int idEditorial = rs.getInt("id_editorial");
+
+                    Detalle_Prestamos Dp = new Detalle_Prestamos(id,idLibro, idEditorial, cantidad);
+
+                    lista.add(Dp);
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al eliminar: " + e.getMessage());
+        }
+
+        return lista;
+    }
 
 
     public void eliminar() {
