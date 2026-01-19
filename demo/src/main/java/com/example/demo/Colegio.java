@@ -32,5 +32,4 @@ public class Colegio {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
 }
