@@ -5,8 +5,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import java.math.BigDecimal;
-
 @SpringBootApplication
 public class DemoApplication {
 
@@ -19,16 +17,14 @@ public class DemoApplication {
         return args -> {
             System.out.println("--- Iniciando Pruebas de Persistencia ---");
 
-            BigDecimal idBuscado = new BigDecimal("1");
-
-            Colegio colegioEncontrado = colegioRepo.findById(idBuscado).orElse(null);
+            Colegio colegioEncontrado = colegioRepo.findById(1L).orElse(null);
 
             if (colegioEncontrado != null) {
                 System.out.println("¡Éxito! Colegio encontrado:");
                 System.out.println("Nombre: " + colegioEncontrado.getNombre());
                 System.out.println("ID: " + colegioEncontrado.getId());
             } else {
-                System.err.println("Error: No se encontró ningún colegio con el ID " + idBuscado);
+                System.err.println("Error: No se encontró ningún colegio con el ID " + 1);
             }
         };
     }

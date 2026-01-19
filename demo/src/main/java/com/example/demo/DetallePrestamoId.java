@@ -4,42 +4,50 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Objects;
 
 @Embeddable
 public class DetallePrestamoId implements Serializable {
     private static final long serialVersionUID = 6073051191439652022L;
     @Column(name = "id_prestamos", nullable = false)
-    private BigDecimal idPrestamos;
+    private long idPrestamos;
 
     @Column(name = "id_libro", nullable = false)
-    private BigDecimal idLibro;
+    private long idLibro;
 
     @Column(name = "id_editorial", nullable = false)
-    private BigDecimal idEditorial;
+    private long idEditorial;
 
-    public BigDecimal getIdPrestamos() {
+    public DetallePrestamoId() {
+    }
+
+    public DetallePrestamoId(long idPrestamos, long idLibro, long idEditorial) {
+        this.idPrestamos = idPrestamos;
+        this.idLibro = idLibro;
+        this.idEditorial = idEditorial;
+    }
+
+    public long getIdPrestamos() {
         return idPrestamos;
     }
 
-    public void setIdPrestamos(BigDecimal idPrestamos) {
+    public void setIdPrestamos(long idPrestamos) {
         this.idPrestamos = idPrestamos;
     }
 
-    public BigDecimal getIdLibro() {
+    public long getIdLibro() {
         return idLibro;
     }
 
-    public void setIdLibro(BigDecimal idLibro) {
+    public void setIdLibro(long idLibro) {
         this.idLibro = idLibro;
     }
 
-    public BigDecimal getIdEditorial() {
+    public long getIdEditorial() {
         return idEditorial;
     }
 
-    public void setIdEditorial(BigDecimal idEditorial) {
+    public void setIdEditorial(long idEditorial) {
         this.idEditorial = idEditorial;
     }
 

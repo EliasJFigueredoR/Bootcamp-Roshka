@@ -2,8 +2,6 @@ package com.example.demo;
 
 import jakarta.persistence.*;
 
-import java.math.BigDecimal;
-
 @Entity
 @Table(name = "detalle_prestamos", schema = "ejercicio5")
 public class DetallePrestamo {
@@ -26,7 +24,18 @@ public class DetallePrestamo {
     private Editorial idEditorial;
 
     @Column(name = "cantidad", nullable = false)
-    private BigDecimal cantidad;
+    private long cantidad;
+
+    public DetallePrestamo() {
+    }
+
+    public DetallePrestamo(PrestamosLibro idPrestamos, Libro idLibro, Editorial idEditorial, long cantidad) {
+        this.idPrestamos = idPrestamos;
+        this.idLibro = idLibro;
+        this.idEditorial = idEditorial;
+        this.cantidad = cantidad;
+        this.id = new DetallePrestamoId(idPrestamos.getId(), idLibro.getId(), idEditorial.getId());
+    }
 
     public DetallePrestamoId getId() {
         return id;
@@ -60,11 +69,11 @@ public class DetallePrestamo {
         this.idEditorial = idEditorial;
     }
 
-    public BigDecimal getCantidad() {
+    public long getCantidad() {
         return cantidad;
     }
 
-    public void setCantidad(BigDecimal cantidad) {
+    public void setCantidad(long cantidad) {
         this.cantidad = cantidad;
     }
 

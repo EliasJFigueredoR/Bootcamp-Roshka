@@ -4,5 +4,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.math.BigDecimal;
 
-public interface ColegioProfesorRepository extends JpaRepository<ColegioProfesor, BigDecimal> {
+public interface ColegioProfesorRepository extends JpaRepository<ColegioProfesor, Long> {
 }

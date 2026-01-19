@@ -2,14 +2,14 @@ package com.example.demo;
 
 import jakarta.persistence.*;
 
-import java.math.BigDecimal;
 
 @Entity
 @Table(name = "colegio_profesor", schema = "ejercicio5")
 public class ColegioProfesor {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_colegio_profesor", nullable = false)
-    private BigDecimal id;
+    private long id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_profesor", nullable = false)
@@ -19,11 +19,19 @@ public class ColegioProfesor {
     @JoinColumn(name = "id_colegio", nullable = false)
     private Colegio idColegio;
 
-    public BigDecimal getId() {
+    public ColegioProfesor() {
+    }
+
+    public ColegioProfesor(Profesor idProfesor, Colegio idColegio) {
+        this.idProfesor = idProfesor;
+        this.idColegio = idColegio;
+    }
+
+    public long getId() {
         return id;
     }
 
-    public void setId(BigDecimal id) {
+    public void setId(long id) {
         this.id = id;
     }
 

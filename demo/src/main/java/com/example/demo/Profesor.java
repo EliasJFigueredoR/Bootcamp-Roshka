@@ -1,27 +1,30 @@
 package com.example.demo;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-
-import java.math.BigDecimal;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "profesor", schema = "ejercicio5")
 public class Profesor {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_profesor", nullable = false)
-    private BigDecimal id;
+    private long id;
 
     @Column(name = "nombre", nullable = false, length = Integer.MAX_VALUE)
     private String nombre;
 
-    public BigDecimal getId() {
+    public Profesor() {
+    }
+
+    public Profesor(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public long getId() {
         return id;
     }
 
-    public void setId(BigDecimal id) {
+    public void setId(long id) {
         this.id = id;
     }
 

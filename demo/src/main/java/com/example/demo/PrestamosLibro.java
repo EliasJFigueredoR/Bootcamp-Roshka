@@ -2,15 +2,15 @@ package com.example.demo;
 
 import jakarta.persistence.*;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "prestamos_libros", schema = "ejercicio5")
 public class PrestamosLibro {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_prestamos", nullable = false)
-    private BigDecimal id;
+    private long id;
 
     @Column(name = "fecha_pestamo", nullable = false)
     private LocalDate fechaPestamo;
@@ -31,11 +31,22 @@ public class PrestamosLibro {
     @JoinColumn(name = "id_aula", nullable = false)
     private Aula idAula;
 
-    public BigDecimal getId() {
+    public PrestamosLibro() {
+    }
+
+    public PrestamosLibro(LocalDate fechaPestamo, ColegioProfesor idColegioProfesor, Curso idCurso, AsignaturaHabilidad idAsignatura, Aula idAula) {
+        this.fechaPestamo = fechaPestamo;
+        this.idColegioProfesor = idColegioProfesor;
+        this.idCurso = idCurso;
+        this.idAsignatura = idAsignatura;
+        this.idAula = idAula;
+    }
+
+    public long getId() {
         return id;
     }
 
-    public void setId(BigDecimal id) {
+    public void setId(long id) {
         this.id = id;
     }
 
