@@ -150,7 +150,6 @@ public class PrestamoServiceImp implements CrudService<PrestamosLibro, Long> {
         return convertirADTO(prestamoExistente);
     }
 
-
     @Transactional(readOnly = true)
     public PrestamosLibroResponseDto obtenerPorId(Long id) {
         PrestamosLibro entidad = this.get(id);

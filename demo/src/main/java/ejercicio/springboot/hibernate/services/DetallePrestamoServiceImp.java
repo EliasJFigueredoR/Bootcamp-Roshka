@@ -1,6 +1,7 @@
 package ejercicio.springboot.hibernate.services;
 
 import ejercicio.springboot.hibernate.dto.request.DetallePrestamoRequestDto;
+import ejercicio.springboot.hibernate.dto.request.DetallePrestamoRequestDtoUp;
 import ejercicio.springboot.hibernate.dto.request.PrestamoLibroRequestDto;
 import ejercicio.springboot.hibernate.dto.response.DetallePrestamoResponseDto;
 import ejercicio.springboot.hibernate.dto.response.PrestamosLibroResponseDto;
@@ -63,16 +64,18 @@ public class DetallePrestamoServiceImp implements CrudService<DetallePrestamo, D
     // === Crud con Dtos === //
     @Transactional
     public DetallePrestamoResponseDto crearDetallePrestamo (Long idPrestamo,
-                                                            DetallePrestamoRequestDto requestDto)
+                                                            Long idLibro,
+                                                            Long idEditorial,
+                                                            DetallePrestamoRequestDtoUp requestDto)
     {
         PrestamosLibro prestamosLibro = new PrestamosLibro();
         prestamosLibro.setId(idPrestamo);
 
         Libro libro = new Libro();
-        libro.setId(requestDto.getIdLibro());
+        libro.setId(idLibro);
 
         Editorial editorial = new Editorial();
-        editorial.setId(requestDto.getIdEditorial());
+        editorial.setId(idEditorial);
 
         DetallePrestamo nuevaEntidad = new DetallePrestamo(
                 prestamosLibro,
@@ -90,7 +93,7 @@ public class DetallePrestamoServiceImp implements CrudService<DetallePrestamo, D
     public DetallePrestamoResponseDto ActualizarDetallePrestamo(Long idPrestamo,
                                                                 Long idLibro,
                                                                 Long idEditorial,
-                                                                DetallePrestamoRequestDto requestDto)
+                                                                DetallePrestamoRequestDtoUp requestDto)
     {
         DetallePrestamoId id = new DetallePrestamoId(idPrestamo, idLibro, idEditorial);
         DetallePrestamo entidad = this.get(id);
