@@ -1,11 +1,18 @@
 package ejercicio.springboot.hibernate.services;
 
-import ejercicio.springboot.hibernate.models.Colegio;
+import ejercicio.springboot.hibernate.dto.request.ColegioProfesorRequestDto;
+import ejercicio.springboot.hibernate.dto.request.DetallePrestamoRequestDto;
+import ejercicio.springboot.hibernate.dto.request.PrestamoLibroRequestDto;
+import ejercicio.springboot.hibernate.dto.response.ColegioProfesorResponseDto;
+import ejercicio.springboot.hibernate.dto.response.PrestamosLibroResponseDto;
+import ejercicio.springboot.hibernate.models.*;
 import ejercicio.springboot.hibernate.repositorys.ColegioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service

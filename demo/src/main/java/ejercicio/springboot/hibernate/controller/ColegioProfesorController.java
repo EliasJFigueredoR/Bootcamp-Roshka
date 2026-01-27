@@ -1,5 +1,7 @@
 package ejercicio.springboot.hibernate.controller;
 
+import ejercicio.springboot.hibernate.dto.request.ColegioProfesorRequestDto;
+import ejercicio.springboot.hibernate.dto.response.ColegioProfesorResponseDto;
 import ejercicio.springboot.hibernate.models.ColegioProfesor;
 import ejercicio.springboot.hibernate.services.ColegioProfesorServiceImp;
 import org.springframework.http.HttpStatus;
@@ -19,15 +21,15 @@ public class ColegioProfesorController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ColegioProfesor>> listarTodos() {
-        List<ColegioProfesor> colegiosProfesores = colegioProfesorService.list();
+    public ResponseEntity<List<ColegioProfesorResponseDto>> listarTodos() {
+        List<ColegioProfesorResponseDto> colegiosProfesores = colegioProfesorService.listarTodos();
         return ResponseEntity.ok(colegiosProfesores);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ColegioProfesor> obtenerPorId(@PathVariable Long id) {
+    public ResponseEntity<ColegioProfesorResponseDto> obtenerPorId(@PathVariable Long id) {
         try {
-            ColegioProfesor resultado = colegioProfesorService.get(id);
+            ColegioProfesorResponseDto resultado = colegioProfesorService.obtenerPorId(id);
             return ResponseEntity.ok(resultado);
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
@@ -35,16 +37,15 @@ public class ColegioProfesorController {
     }
 
     @PostMapping
-    public ResponseEntity<ColegioProfesor> crear(@RequestBody ColegioProfesor colegioProfesor) {
-        ColegioProfesor nuevo = colegioProfesorService.create(colegioProfesor);
+    public ResponseEntity<ColegioProfesorResponseDto> crear(@RequestBody ColegioProfesorRequestDto colegioProfesor) {
+        ColegioProfesorResponseDto nuevo = colegioProfesorService.CrearColegioProfesorDto(colegioProfesor);
         return ResponseEntity.status(HttpStatus.CREATED).body(nuevo);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ColegioProfesor> actualizar(@PathVariable Long id, @RequestBody ColegioProfesor colegioProfesor) {
+    public ResponseEntity<ColegioProfesorResponseDto> actualizar(@PathVariable Long id, @RequestBody ColegioProfesorRequestDto colegioProfesor) {
         try {
-            colegioProfesor.setId(id);
-            ColegioProfesor actualizado = colegioProfesorService.update(colegioProfesor);
+            ColegioProfesorResponseDto actualizado = colegioProfesorService.actualizarColegioProfesorDto(id, colegioProfesor);
             return ResponseEntity.ok(actualizado);
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();

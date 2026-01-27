@@ -71,7 +71,7 @@ public class DetallePrestamoController {
         }
     }
 
-    @DeleteMapping("/{idPrestamo}/{idLibro}/{idEditorial}")
+    @DeleteMapping("/prestamo/{idPrestamo}/Detalle{idLibro}/{idEditorial}")
     public ResponseEntity<Void> eliminar(
             @PathVariable Long idPrestamo,
             @PathVariable Long idLibro,
