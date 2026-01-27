@@ -1,6 +1,7 @@
 package ejercicio.springboot.hibernate.repositorys;
 
 import ejercicio.springboot.hibernate.models.ColegioProfesor;
+import org.jspecify.annotations.NullMarked;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
@@ -10,5 +11,9 @@ public interface ColegioProfesorRepository extends JpaRepository<ColegioProfesor
 
     @EntityGraph(attributePaths = {"idProfesor", "idColegio"})
     Optional<ColegioProfesor> findById(long id);
+
+    @NullMarked
+    @EntityGraph(attributePaths = {"idProfesor", "idColegio"})
+    List<ColegioProfesor> findAll();
 
 }

@@ -1,5 +1,7 @@
 package ejercicio.springboot.hibernate.controller;
 
+import ejercicio.springboot.hibernate.dto.request.PrestamoLibroRequestDto;
+import ejercicio.springboot.hibernate.dto.response.PrestamosLibroResponseDto;
 import ejercicio.springboot.hibernate.models.PrestamosLibro;
 import ejercicio.springboot.hibernate.services.PrestamoServiceImp;
 import org.springframework.http.HttpStatus;
@@ -19,15 +21,15 @@ public class PrestamosLibroController {
     }
 
     @GetMapping
-    public ResponseEntity<List<PrestamosLibro>> listarTodos() {
-        List<PrestamosLibro> prestamos = prestamoService.list();
+    public ResponseEntity<List<PrestamosLibroResponseDto>> listarTodos() {
+        List<PrestamosLibroResponseDto> prestamos = prestamoService.listarTodos();
         return ResponseEntity.ok(prestamos);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PrestamosLibro> obtenerPorId(@PathVariable Long id) {
+    public ResponseEntity<PrestamosLibroResponseDto> obtenerPorId(@PathVariable Long id) {
         try {
-            PrestamosLibro resultado = prestamoService.get(id);
+            PrestamosLibroResponseDto resultado = prestamoService.obtenerPorId(id);
             return ResponseEntity.ok(resultado);
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
@@ -35,16 +37,15 @@ public class PrestamosLibroController {
     }
 
     @PostMapping
-    public ResponseEntity<PrestamosLibro> crear(@RequestBody PrestamosLibro prestamo) {
-        PrestamosLibro nuevo = prestamoService.create(prestamo);
+    public ResponseEntity<PrestamosLibroResponseDto> crear(@RequestBody PrestamoLibroRequestDto prestamo) {
+        PrestamosLibroResponseDto nuevo = prestamoService.crearPrestamoDesdeDto(prestamo);
         return ResponseEntity.status(HttpStatus.CREATED).body(nuevo);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PrestamosLibro> actualizar(@PathVariable Long id, @RequestBody PrestamosLibro prestamo) {
+    public ResponseEntity<PrestamosLibroResponseDto> actualizar(@PathVariable Long id, @RequestBody PrestamoLibroRequestDto prestamo) {
         try {
-            prestamo.setId(id);
-            PrestamosLibro actualizado = prestamoService.update(prestamo);
+            PrestamosLibroResponseDto actualizado = prestamoService.actualizarPrestamoDesdeDto(id, prestamo);
             return ResponseEntity.ok(actualizado);
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();

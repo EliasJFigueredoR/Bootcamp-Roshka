@@ -11,4 +11,12 @@ import java.util.Optional;
 
 public interface DetallePrestamoRepository extends JpaRepository<DetallePrestamo, DetallePrestamoId> {
 
+    @NullMarked
+    @EntityGraph(attributePaths = {"idLibro", "idEditorial"})
+    Optional<DetallePrestamo> findById(DetallePrestamoId id);
+
+    @NullMarked
+    @EntityGraph(attributePaths = {"idLibro", "idEditorial"})
+    List<DetallePrestamo> findAll();
+
 }

@@ -15,12 +15,16 @@ import java.util.Optional;
 
 public interface PrestamosLibroRepository extends JpaRepository<PrestamosLibro, Long> {
 
+    @NullMarked
     @EntityGraph(attributePaths = {"idColegioProfesor",
             "idColegioProfesor.idColegio",
             "idColegioProfesor.idProfesor",
             "idCurso",
             "idAsignatura",
-            "idAula"
+            "idAula",
+            "detalles",
+            "detalles.idLibro",
+            "detalles.idEditorial"
     })
     Optional<PrestamosLibro> findById(long id);
 
@@ -30,7 +34,10 @@ public interface PrestamosLibroRepository extends JpaRepository<PrestamosLibro, 
             "idColegioProfesor.idProfesor",
             "idCurso",
             "idAsignatura",
-            "idAula"
+            "idAula",
+            "detalles",
+            "detalles.idLibro",
+            "detalles.idEditorial"
     })
     List<PrestamosLibro> findAll();
 

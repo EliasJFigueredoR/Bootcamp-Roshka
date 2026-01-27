@@ -15,6 +15,7 @@ class Main {
         SpringApplication.run(Main.class, args);
     }
 
+    /*
     @Bean
     public CommandLineRunner aplicacionPrincipal(
             ColegioRepository colegioRepo,
@@ -98,7 +99,7 @@ class Main {
             System.out.println(prestamo);
 
 
-        };
-    }
+         };
+     }*/
 }
 

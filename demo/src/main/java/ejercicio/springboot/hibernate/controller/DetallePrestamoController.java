@@ -1,5 +1,7 @@
 package ejercicio.springboot.hibernate.controller;
 
+import ejercicio.springboot.hibernate.dto.request.DetallePrestamoRequestDto;
+import ejercicio.springboot.hibernate.dto.response.DetallePrestamoResponseDto;
 import ejercicio.springboot.hibernate.models.DetallePrestamo;
 import ejercicio.springboot.hibernate.models.DetallePrestamoId;
 import ejercicio.springboot.hibernate.services.DetallePrestamoServiceImp;
@@ -20,41 +22,49 @@ public class DetallePrestamoController {
     }
 
     @GetMapping
-    public ResponseEntity<List<DetallePrestamo>> listarTodos() {
-        List<DetallePrestamo> detalles = detallePrestamoService.list();
+    public ResponseEntity<List<DetallePrestamoResponseDto>> listarTodos() {
+        List<DetallePrestamoResponseDto> detalles = detallePrestamoService.listarTodos();
         return ResponseEntity.ok(detalles);
     }
 
     @GetMapping("/{idPrestamo}/{idLibro}/{idEditorial}")
-    public ResponseEntity<DetallePrestamo> obtenerPorId(
+    public ResponseEntity<DetallePrestamoResponseDto> obtenerPorId(
             @PathVariable Long idPrestamo,
             @PathVariable Long idLibro,
             @PathVariable Long idEditorial) {
         try {
-            DetallePrestamoId id = new DetallePrestamoId(idPrestamo, idLibro, idEditorial);
-            DetallePrestamo resultado = detallePrestamoService.get(id);
-            return ResponseEntity.ok(resultado);
+
+            DetallePrestamoResponseDto detalleDto = detallePrestamoService
+                    .obtenerPorId(idPrestamo, idLibro, idEditorial);
+
+            return ResponseEntity.ok(detalleDto);
         } catch (RuntimeException e) {
+
             return ResponseEntity.notFound().build();
+
         }
     }
 
-    @PostMapping
-    public ResponseEntity<DetallePrestamo> crear(@RequestBody DetallePrestamo detallePrestamo) {
-        DetallePrestamo nuevo = detallePrestamoService.create(detallePrestamo);
+    @PostMapping("/agregar-a/{id}")
+    public ResponseEntity<DetallePrestamoResponseDto> crear(@PathVariable Long id
+                                                            ,@RequestBody DetallePrestamoRequestDto detallePrestamo)
+    {
+        DetallePrestamoResponseDto nuevo = detallePrestamoService.crearDetallePrestamo(id, detallePrestamo);
         return ResponseEntity.status(HttpStatus.CREATED).body(nuevo);
     }
 
     @PutMapping("/{idPrestamo}/{idLibro}/{idEditorial}")
-    public ResponseEntity<DetallePrestamo> actualizar(
+    public ResponseEntity<DetallePrestamoResponseDto> actualizar(
             @PathVariable Long idPrestamo,
             @PathVariable Long idLibro,
             @PathVariable Long idEditorial,
-            @RequestBody DetallePrestamo detallePrestamo) {
+            @RequestBody DetallePrestamoRequestDto detallePrestamo) {
         try {
-            DetallePrestamoId id = new DetallePrestamoId(idPrestamo, idLibro, idEditorial);
-            detallePrestamo.setId(id);
-            DetallePrestamo actualizado = detallePrestamoService.update(detallePrestamo);
+            DetallePrestamoResponseDto actualizado = detallePrestamoService
+                    .ActualizarDetallePrestamo(idPrestamo,
+                    idLibro,
+                    idEditorial,
+                    detallePrestamo);
             return ResponseEntity.ok(actualizado);
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();

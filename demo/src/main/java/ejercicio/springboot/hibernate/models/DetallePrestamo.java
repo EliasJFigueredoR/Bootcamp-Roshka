@@ -1,5 +1,6 @@
 package ejercicio.springboot.hibernate.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity

@@ -1,11 +1,16 @@
 package ejercicio.springboot.hibernate.services;
 
-import ejercicio.springboot.hibernate.models.DetallePrestamo;
-import ejercicio.springboot.hibernate.models.DetallePrestamoId;
+import ejercicio.springboot.hibernate.dto.request.DetallePrestamoRequestDto;
+import ejercicio.springboot.hibernate.dto.request.PrestamoLibroRequestDto;
+import ejercicio.springboot.hibernate.dto.response.DetallePrestamoResponseDto;
+import ejercicio.springboot.hibernate.dto.response.PrestamosLibroResponseDto;
+import ejercicio.springboot.hibernate.models.*;
 import ejercicio.springboot.hibernate.repositorys.DetallePrestamoRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -55,4 +60,87 @@ public class DetallePrestamoServiceImp implements CrudService<DetallePrestamo, D
         return true;
     }
 
+    // === Crud con Dtos === //
+    @Transactional
+    public DetallePrestamoResponseDto crearDetallePrestamo (Long idPrestamo,
+                                                            DetallePrestamoRequestDto requestDto)
+    {
+        PrestamosLibro prestamosLibro = new PrestamosLibro();
+        prestamosLibro.setId(idPrestamo);
+
+        Libro libro = new Libro();
+        libro.setId(requestDto.getIdLibro());
+
+        Editorial editorial = new Editorial();
+        editorial.setId(requestDto.getIdEditorial());
+
+        DetallePrestamo nuevaEntidad = new DetallePrestamo(
+                prestamosLibro,
+                libro,
+                editorial,
+                requestDto.getCantidad()
+        );
+
+        DetallePrestamo entidadGuardada = this.create(nuevaEntidad);
+
+        return convertirADTO(entidadGuardada);
+    }
+
+    @Transactional
+    public DetallePrestamoResponseDto ActualizarDetallePrestamo(Long idPrestamo,
+                                                                Long idLibro,
+                                                                Long idEditorial,
+                                                                DetallePrestamoRequestDto requestDto)
+    {
+        DetallePrestamoId id = new DetallePrestamoId(idPrestamo, idLibro, idEditorial);
+        DetallePrestamo entidad = this.get(id);
+
+        // Actualizar campos
+        entidad.setCantidad(requestDto.getCantidad());
+
+        // Guardar cambios
+        DetallePrestamo entidadActualizada = this.update(entidad);
+
+        return convertirADTO(entidadActualizada);
+    }
+
+
+    @Transactional(readOnly = true)
+    public DetallePrestamoResponseDto obtenerPorId(Long idPrestamo, Long idLibro, Long idEditorial) {
+        DetallePrestamoId id = new DetallePrestamoId(idPrestamo, idLibro, idEditorial);
+        DetallePrestamo entidad = this.get(id);
+        return new DetallePrestamoResponseDto(
+                entidad.getIdPrestamos().getId(),
+                entidad.getIdLibro().getId(),
+                entidad.getIdEditorial().getId(),
+                entidad.getIdLibro().getNombre(),
+                entidad.getIdEditorial().getNombre(),
+                entidad.getCantidad()
+        );
+    }
+
+    @Transactional(readOnly = true)
+    public List<DetallePrestamoResponseDto> listarTodos() {
+        List<DetallePrestamo> entidades = this.list();
+        List<DetallePrestamoResponseDto> dtos = new ArrayList<>();
+
+        for (DetallePrestamo entidad : entidades) {
+            dtos.add(convertirADTO(entidad));
+        }
+        return dtos;
+    }
+
+    // ==== MÉTODOS AUXILIARES DE CONVERSIÓN ==== //
+
+    private DetallePrestamoResponseDto convertirADTO(DetallePrestamo entidad) {
+
+        return new DetallePrestamoResponseDto(
+                entidad.getIdPrestamos().getId(),
+                entidad.getIdLibro().getId(),
+                entidad.getIdEditorial().getId(),
+                entidad.getIdLibro().getNombre(),
+                entidad.getIdEditorial().getNombre(),
+                entidad.getCantidad()
+        );
+    }
 }

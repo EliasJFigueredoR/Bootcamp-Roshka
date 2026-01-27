@@ -3,6 +3,7 @@ package ejercicio.springboot.hibernate.models;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "prestamos_libros", schema = "ejercicio5")
@@ -30,6 +31,9 @@ public class PrestamosLibro {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_aula", nullable = false)
     private Aula idAula;
+
+    @OneToMany(mappedBy = "idPrestamos", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<DetallePrestamo> detalles;
 
     public PrestamosLibro() {
     }
@@ -100,4 +104,11 @@ public class PrestamosLibro {
         this.idAula = idAula;
     }
 
+    public List<DetallePrestamo> getDetalles() {
+        return detalles;
+    }
+
+    public void setDetalles(List<DetallePrestamo> detalles) {
+        this.detalles = detalles;
+    }
 }
