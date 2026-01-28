@@ -11,7 +11,6 @@ import java.util.List;
 @Service
 public class AulaServiceImp implements CrudService<Aula, Long> {
     
-
     private final AulaRepository aulaRepository;
 
     // ===== OPERACIONES CRUD ===== //
