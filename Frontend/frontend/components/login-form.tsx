@@ -15,11 +15,10 @@ import {
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { useAuth } from "@/hooks/use-auth"
-import { loginSchema, LoginInput } from "@/schemas/auth"
+import { loginSchema} from "@/schemas/auth"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { toast } from "sonner"
-import {z} from "zod"
 
 export function LoginForm({
   className,
@@ -76,6 +75,7 @@ export function LoginForm({
                 <FieldLabel htmlFor="username">Username</FieldLabel>
                 <Input
                   id="username"
+                  name="username"
                   type="text"
                   required
                 />
@@ -90,7 +90,7 @@ export function LoginForm({
                     Forgot your password?
                   </a>
                 </div>
-                <Input id="password" type="password" required />
+                <Input id="password" name="password" type="password" required />
               </Field>
               <Field>
                 <Button type="submit" disabled={isLoading}>Login</Button>
