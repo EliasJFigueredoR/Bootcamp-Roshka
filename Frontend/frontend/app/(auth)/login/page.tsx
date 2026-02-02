@@ -12,7 +12,7 @@ export default function LoginPage() {
   // Redirigir si ya está autenticado
   useEffect(() => {
     if (!isLoading && isAuthenticated) {
-      router.push('/editorial') // o la ruta de tu dashboard
+      router.push('/libros') // o la ruta de tu dashboard
     }
   }, [isAuthenticated, isLoading, router])
 
