@@ -3,6 +3,7 @@ package ejercicio.springboot.hibernate.services;
 import ejercicio.springboot.hibernate.dto.request.LoginRequest;
 import ejercicio.springboot.hibernate.dto.request.RegisterRequest;
 import ejercicio.springboot.hibernate.dto.response.AuthResponse;
+import ejercicio.springboot.hibernate.dto.response.UserResponse;
 import ejercicio.springboot.hibernate.models.User;
 import ejercicio.springboot.hibernate.repositorys.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +31,7 @@ public class AuthService {
         User user = userRepository.findByUsername(request.getUsername()).orElseThrow();
         String token = jwtService.getToken(user);
 
-        return new AuthResponse(token);
+        return new AuthResponse(token, user.getId(), user.getUsername());
     }
 
     public AuthResponse register(RegisterRequest request) {
@@ -39,7 +40,13 @@ public class AuthService {
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         User usuarioGuardado = userRepository.save(user);
 
-        return new AuthResponse(jwtService.getToken(user));
+        return new AuthResponse(jwtService.getToken(user), usuarioGuardado.getId(), usuarioGuardado.getUsername());
 
+    }
+
+    public UserResponse me(String username) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado: " + username));
+        return new UserResponse(user.getId(), user.getUsername());
     }
 }

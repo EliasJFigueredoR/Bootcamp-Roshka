@@ -1,6 +1,5 @@
 package ejercicio.springboot.hibernate.dto.response;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,8 +11,7 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthResponse {
-    String token;
+public class UserResponse {
     UUID id;
     String username;
 }

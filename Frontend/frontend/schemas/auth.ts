@@ -49,7 +49,7 @@ export const UserSchema = z.object(
     .string({ message: "El nombre de usuario es obligatorio" })
     .min(1, "El nombre de usuario debe tener al menos un caracter"),
   }
-)
+);
 
 export type User = z.infer<typeof UserSchema>;
 
@@ -57,11 +57,21 @@ export type User = z.infer<typeof UserSchema>;
  * Respuesta exitosa del servidor al hacer login o register
  * Incluye el token JWT y los datos del usuario
  */
-export const authResponseSchema = z.object({
+export const authResponseBackendSchema = z.object({
   token: z.string(),
-  user: UserSchema,
-  expiresIn: z.number().optional(),
+  id: z.uuid(),
+  username: z.string(),
 });
+
+
+export const authResponseSchema = authResponseBackendSchema.transform((data) => ({
+  token: data.token,
+  user: {
+    id: data.id,
+    username: data.username,
+  },
+}));
+
 
 export type AuthResponse = z.infer<typeof authResponseSchema>;
 
